@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["/app-039399e0784fc4566a1d.js","7f6fd7a907322a8e4fd26193c3b93d86"],["/commons-273601365063f15ec345.js","a00798be84acf87a4ab37d5ea6e26219"],["/index.html","5c3b200b51ff372b34450ad9f9bfc66f"],["/manifest.webmanifest","86fb12a99d1234820f0b2de729c69bc7"],["/offline-plugin-app-shell-fallback/index.html","22b7adcd3ab7e972034f0896e9979577"]];
+var precacheConfig = [["/handbook/app-039399e0784fc4566a1d.js","4ccab5cf7b1db4067a09a365f65100fd"],["/handbook/commons-982d7ee603461ed6744c.js","20b2369f5d01350f8ef18398b356bb99"],["/handbook/index.html","74928ca59f1d12af5edbdda2310da3b5"],["/handbook/manifest.webmanifest","3680ce1ef1bf7feb2e6e0f2f1488d823"],["/handbook/offline-plugin-app-shell-fallback/index.html","10831ebb86a9daaa502677bd0f09a842"]];
 var cacheName = 'sw-precache-v3-gatsby-plugin-offline-' + (self.registration ? self.registration.scope : '');
 
 
