@@ -1,6 +1,6 @@
 ---
 name: New content issue template
-about: 'Use this template when suggesting new handbook content '
+about: 'Use this template when suggesting new handbook content'
 title: ''
 labels: content
 assignees: ''
@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 Issue type: NEW CONTENT
-Parent category: **Where should this content be placed?**
+Parent category: /category/subcategory (where in the table of contents should this content be placed)
 
 ## Driver
 
