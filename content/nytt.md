@@ -4,6 +4,8 @@ date: "01/01/2019"
 slug: "/guides/handbook/add-content"
 ---
 
+NYTT
+
 So, you have identified something that needs to be added to the handbook? Great! The IN handbook is created and maintained in a collaborative effort and access is granted to all members. Access is not just granted, you are also actively encouraged to participate in the process!
 
 **What should you write about?** Only you know. If you have identified something in the workings of the organisation that is unclear/ambiguous, then that probably is a good candidate for an article.
