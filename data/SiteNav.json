@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Welcome",
+    "slug": "/welcome"
+  },
+  {
+    "title": "Stadgar",
+    "slug": "/stadgar"
+  },
+  {
+    "title": "Guides",
+    "slug": "/guides",
+    "subnodes": [
+      {
+        "node": {
+          "title": "GitHub",
+          "slug": "/guides/github"
+        }
+      },
+      {
+        "node": {
+          "title": "Handbook",
+          "slug": "/guides/handbook",
+          "subnodes": [
+            {
+              "node": {
+                "title": "Add/edit content",
+                "slug": "/guides/handbook/add-edit"
+              }
+            },
+            {
+              "node": {
+                "title": "Editorial process",
+                "slug": "/guides/handbook/editorial-process"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "title": "Circles",
+    "slug": "/circles",
+    "subnodes": [
+      {
+        "node": {
+          "title": "Initiativet Tech Team",
+          "slug": "/circles/intt"
+        }
+      }
+    ]
+  },
+  {
+    "title": "Sample Content",
+    "slug": "/sample-content",
+    "subnodes": [
+      {
+        "node": {
+          "title": "The Fallen Time",
+          "slug": "/sample-content/the-fallen-time-custom-slug"
+        }
+      },
+      {
+        "node": {
+          "title": "Big Test",
+          "slug": "/sample-content/big-sample-test"
+        }
+      }
+    ]
+  }
+]

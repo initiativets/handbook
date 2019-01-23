@@ -1,17 +1,32 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import { graphql } from 'gatsby'
+import Layout from '../layout'
 import PostListing from '../components/PostListing/PostListing'
 import config from '../../data/SiteConfig'
 
 export default class TagTemplate extends React.Component {
-  render() {
-    const tag = this.props.pathContext.tag
-    const postEdges = this.props.data.allMarkdownRemark.edges
+  render () {
+    const { pageContext, data } = this.props
     return (
-      <div className="tag-container">
-        <Helmet title={`Posts tagged as "${tag}" | ${config.siteTitle}`} />
-        <PostListing postEdges={postEdges} />
-      </div>
+      <Layout pageContext={pageContext} data={data}>
+        <div className='tag-container'>
+          <Helmet>
+            <title>
+              {`Posts tagged as "${pageContext.tag}" | ${config.siteTitle}`}
+            </title>
+            <body className='w-100 sans-serif pa0 near-black' />
+          </Helmet>
+          <div className='flex'>
+            <div className='w-100 flex justify-center b--moon-gray'>
+              <div className='w-100 mw7 pa3'>
+                <h1>Post tags</h1>
+                <PostListing postEdges={data.allMarkdownRemark.edges} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Layout>
     )
   }
 }
@@ -21,7 +36,7 @@ export const pageQuery = graphql`
   query TagPage($tag: String) {
     allMarkdownRemark(
       limit: 1000
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { fields: [fields___date], order: DESC }
       filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       totalCount
@@ -29,6 +44,7 @@ export const pageQuery = graphql`
         node {
           fields {
             slug
+            date
           }
           excerpt
           timeToRead
@@ -37,6 +53,20 @@ export const pageQuery = graphql`
             tags
             cover
             date
+          }
+        }
+      }
+    }
+    nav: allSiteNavJson {
+      edges {
+        node {
+          slug
+          title
+          subnodes {
+            node {
+              slug
+              title
+            }
           }
         }
       }
