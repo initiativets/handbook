@@ -1,28 +1,32 @@
+const urljoin = require('url-join')
 const config = require('./data/SiteConfig')
-
-const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix
 
 module.exports = {
   pathPrefix: config.pathPrefix,
   siteMetadata: {
-    siteUrl: config.siteUrl + pathPrefix,
+    siteUrl: urljoin(config.siteUrl, config.pathPrefix),
     rssMetadata: {
-      site_url: config.siteUrl + pathPrefix,
-      feed_url: config.siteUrl + pathPrefix + config.siteRss,
+      site_url: urljoin(config.siteUrl, config.pathPrefix),
+      feed_url: urljoin(config.siteUrl, config.pathPrefix, config.siteRss),
       title: config.siteTitle,
       description: config.siteDescription,
-      image_url: `${config.siteUrl + pathPrefix}/logos/logo-512.png`,
+      image_url: `${urljoin(
+        config.siteUrl,
+        config.pathPrefix
+      )}/logos/logo-512.png`,
       author: config.userName,
       copyright: config.copyright
     }
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-lodash',
     {
-      resolve: `gatsby-plugin-google-fonts`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        fonts: [`crimson text:400, 400i, 700, 700i`, `space mono:400,700`]
+        name: 'assets',
+        path: `${__dirname}/static/`
       }
     },
     {
@@ -45,10 +49,26 @@ module.exports = {
           {
             resolve: 'gatsby-remark-responsive-iframe'
           },
-          'gatsby-remark-prismjs',
+          {
+            resolve: 'gatsby-remark-prismjs',
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: null,
+              aliases: {},
+              showLineNumbers: false,
+              noInlineHighlight: false
+            }
+          },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-autolink-headers'
         ]
+      }
+    },
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./data/`
       }
     },
     {
@@ -67,12 +87,11 @@ module.exports = {
     'gatsby-plugin-catch-links',
     'gatsby-plugin-twitter',
     'gatsby-plugin-sitemap',
-    'gatsby-transformer-json',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: config.siteTitle,
-        short_name: config.siteTitle,
+        short_name: config.siteTitleShort,
         description: config.siteDescription,
         start_url: config.pathPrefix,
         background_color: config.backgroundColor,
@@ -96,7 +115,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-feed',
       options: {
-        setup(ref) {
+        setup (ref) {
           const ret = ref.query.site.siteMetadata.rssMetadata
           ret.allMarkdownRemark = ref.query.allMarkdownRemark
           ret.generator = 'GatsbyJS Material Starter'
@@ -121,11 +140,11 @@ module.exports = {
       `,
         feeds: [
           {
-            serialize(ctx) {
-              const rssMetadata = ctx.query.site.siteMetadata.rssMetadata
+            serialize (ctx) {
+              const { rssMetadata } = ctx.query.site.siteMetadata
               return ctx.query.allMarkdownRemark.edges.map(edge => ({
                 categories: edge.node.frontmatter.tags,
-                date: edge.node.frontmatter.date,
+                date: edge.node.fields.date,
                 title: edge.node.frontmatter.title,
                 description: edge.node.excerpt,
                 author: rssMetadata.author,
@@ -138,17 +157,22 @@ module.exports = {
             {
               allMarkdownRemark(
                 limit: 1000,
-                sort: { order: DESC, fields: [frontmatter___date] },
+                sort: { order: DESC, fields: [fields___date] },
               ) {
                 edges {
                   node {
                     excerpt
                     html
                     timeToRead
-                    fields { slug }
+                    fileAbsolutePath
+                    fields {
+                      slug
+                      date
+                    }
                     frontmatter {
                       title
                       cover
+                      icon
                       date
                       category
                       tags
