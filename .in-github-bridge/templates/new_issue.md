@@ -1,4 +1,12 @@
-# {{title}}
+---
+title: "{{title}}"
+date: "{{date}}"
+slug: "/category/subcategory"
+---
+
+👆 slug = where in the table of contents should this content be placed
+
+**Replace the text in the following paragraphs with your text.**
 
 ## Driver & description
 
@@ -6,7 +14,6 @@ What is the motive for this content, what's happening? Describe the current situ
 
 _The contact page is a mess: the phone number is wrong and the description of Initiativet is out of date. Members and external people are complaining. We need a full rewrite of the contact page!_
 
----
-### [🔗 File link](https://github.com/{{owner}}/{{repo}}/blob/master/{{path}})
-### [📝 Edit file](https://github.com/{{owner}}/{{repo}}/edit/master/{{path}})
-### [📘 View history](https://github.com/{{owner}}/{{repo}}/commits/master/{{path}})
+## Content
+
+**Add page content in [markdown format](https://guides.github.com/features/mastering-markdown/) here**
