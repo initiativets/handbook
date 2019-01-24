@@ -2,9 +2,14 @@ import config from '../../data/SiteConfig'
 import * as github from './GitHub'
 
 export function getLoginUrl () {
-  return `${config.handBotBaseUrl}/login/${config.gitHubOwner}/${
-    config.gitHubRepo
-  }`
+  if (typeof window !== `undefined`) {
+    const redirectUrl = window.location.href
+
+    return `${config.handBotBaseUrl}/login/${config.gitHubOwner}/${
+      config.gitHubRepo
+    }?redirect_url=${redirectUrl}`
+  }
+  return null
 }
 
 export function getCreateUrl (title) {

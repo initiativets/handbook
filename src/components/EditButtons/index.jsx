@@ -9,7 +9,13 @@ import HistoryButton from './HistoryButton'
 import AvatarButton from './AvatarButton'
 
 function onGitHubLoginClick () {
-  window.location = handBot.getLoginUrl()
+  const url = handBot.getLoginUrl()
+  if (url) {
+    if (typeof window !== `undefined`) {
+      window.location = url
+    }
+  }
+  // TODO: Show error message
 }
 
 class EditButtons extends Component {
