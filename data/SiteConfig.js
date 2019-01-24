@@ -14,7 +14,7 @@ module.exports = {
   gitHubOwner: 'initiativets',
   gitHubRepo: 'handbook',
   gitHubBranch: 'master',
-  templateNewIssueUrl: '.in-github-bridge/templates/new_issue.md',
+  templateNewIssueUrl: '.handbot/templates/issue.md',
   // HandBot
   handBotBaseUrl: 'http://localhost:3000',
   // Website description used for RSS feeds/meta description tag.

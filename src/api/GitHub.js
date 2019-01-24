@@ -31,3 +31,7 @@ export function getHistoryUrl (path) {
     config.gitHubRepo
   }/commits/${config.gitHubBranch}/${config.contentFolder}${path}`
 }
+
+export function getUserUrl (login) {
+  return `${config.gitHubBaseUrl}/${login}`
+}

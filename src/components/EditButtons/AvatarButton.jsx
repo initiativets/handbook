@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import * as github from '../../api/GitHub'
 
 function onAvatarClick (gitHubUser) {
-  window.location = github.getHistoryUrl(gitHubUser)
+  window.location = github.getUserUrl(gitHubUser)
 }
 
 export default class AvatarButton extends Component {

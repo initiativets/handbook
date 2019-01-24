@@ -2,24 +2,26 @@ import React, { Component } from 'react'
 import { GoMarkGithub } from 'react-icons/go'
 import { parse } from 'query-string'
 import * as github from '../../api/GitHub'
-import * as bridge from '../../api/HandBot'
+import * as handBot from '../../api/HandBot'
 import CreateButton from './CreateButton'
 import EditButton from './EditButton'
 import HistoryButton from './HistoryButton'
 import AvatarButton from './AvatarButton'
 
 function onGitHubLoginClick () {
-  window.location = bridge.getLoginUrl()
+  window.location = handBot.getLoginUrl()
 }
 
 class EditButtons extends Component {
   constructor (props) {
     super(props)
 
-    const querystring = parse(window.location.search)
-    if (querystring && querystring.access_token) {
-      github.saveAccessToken(querystring.access_token)
-      window.history.replaceState(null, null, window.location.pathname)
+    if (typeof window !== `undefined`) {
+      const querystring = parse(window.location.search)
+      if (querystring && querystring.access_token) {
+        github.saveAccessToken(querystring.access_token)
+        window.history.replaceState(null, null, window.location.pathname)
+      }
     }
 
     this.state = {
@@ -41,7 +43,7 @@ class EditButtons extends Component {
         this.setState({
           loggedIn: true,
           avatarUrl: response.data.avatar_url,
-          gitHubUser: response.data.name
+          gitHubUser: response.data.login
         })
       } else {
         this.setState({ loggedIn: false })

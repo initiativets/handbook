@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import Loader from 'react-loader-spinner'
 import { GoMarkGithub } from 'react-icons/go'
 import { MdNoteAdd } from 'react-icons/md'
 import Modal from 'react-modal'
-import * as bridge from '../../api/HandBot'
+import * as handBot from '../../api/HandBot'
 import config from '../../../data/SiteConfig'
 
 const modalStyles = {
@@ -17,33 +18,15 @@ const modalStyles = {
   }
 }
 
-async function gitHubCreateIssue (title) {
-  const url = bridge.getCreateIssueUrl(title, config.templateNewIssueUrl)
-
-  // eslint-disable-next-line
-  const response = await fetch(url);
-
-  if (response.ok) {
-    const body = await response.json()
-
-    if (body.error && body.error.code === 'NO_INSTALLATION_TOKEN') {
-      window.location = bridge.getLoginUrl()
-    }
-
-    if (body.data && body.data.html_url) {
-      window.location = body.data.html_url
-    }
-  }
-}
-
-Modal.setAppElement(document.getElementById('root'))
-
 class CreateButton extends Component {
   constructor () {
+    Modal.setAppElement(document.documentElement)
+
     super()
 
     this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
+      loading: false
     }
 
     this.openModal = this.openModal.bind(this)
@@ -59,7 +42,7 @@ class CreateButton extends Component {
   onCreateClick () {
     const { pageTitle } = this.state
     if (pageTitle.length > 0) {
-      gitHubCreateIssue(pageTitle)
+      this.gitHubCreateIssue(pageTitle)
       this.setState({ modalIsOpen: false })
     }
   }
@@ -76,6 +59,40 @@ class CreateButton extends Component {
     this.setState({ modalIsOpen: true })
   }
 
+  async gitHubCreateIssue (title) {
+    const { loading } = this.state
+    if (!loading) {
+      this.setState({ loading: true })
+
+      const url = handBot.getCreateIssueUrl(title, config.templateNewIssueUrl)
+
+      // eslint-disable-next-line
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const body = await response.json()
+
+        if (body.error && body.error.code === 'NO_INSTALLATION_TOKEN') {
+          window.location = handBot.getLoginUrl()
+        }
+
+        if (body.data && body.data.html_url) {
+          window.location = body.data.html_url
+        }
+
+        this.setState({ loading: false })
+      }
+    }
+  }
+
+  uiIcon () {
+    const { loading } = this.state
+    if (loading) {
+      return <Loader type='ThreeDots' color='#357edd' height='24' width='24' />
+    }
+    return <MdNoteAdd className='f3' />
+  }
+
   render () {
     const { modalIsOpen } = this.state
 
@@ -88,8 +105,9 @@ class CreateButton extends Component {
           className='link dim gray ba b--light-gray pa1 mr1'
           style={{ background: 'none' }}
         >
-          <MdNoteAdd className='f3' />
+          {this.uiIcon()}
         </button>
+
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={this.closeModal}

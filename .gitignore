@@ -59,3 +59,4 @@ public/
 bundle-stats.json
 
 .DS_Store
+yarn.lock
