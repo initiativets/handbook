@@ -16,7 +16,7 @@ module.exports = {
   gitHubBranch: 'master',
   templateNewIssueUrl: '.handbot/templates/issue.md',
   // HandBot
-  handBotBaseUrl: 'http://localhost:3000',
+  handBotBaseUrl: 'http://138.68.146.11:3000',
   // Website description used for RSS feeds/meta description tag.
   siteRss: '/rss.xml', // Path to the RSS file.
   siteFBAppID: '1825356251115265', // FB Application ID for using app insights

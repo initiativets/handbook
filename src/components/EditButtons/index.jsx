@@ -16,6 +16,8 @@ class EditButtons extends Component {
   constructor (props) {
     super(props)
 
+    // github.saveAccessToken(null)
+
     if (typeof window !== `undefined`) {
       const querystring = parse(window.location.search)
       if (querystring && querystring.access_token) {
